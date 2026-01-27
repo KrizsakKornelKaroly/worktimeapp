@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,19 +8,38 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
 
   private server = environment.serverUrl;
-
+  private tokenName = environment.tokenName;
 
   constructor(private http: HttpClient) { }
 
-  //public endpoints
+  getToken(): String | null {
+    return sessionStorage.getItem(this.tokenName);
+  }
 
-  registration(){}
+  tokenHeader() : { headers: HttpHeaders } {
+    let token = this.getToken();
+    
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  login(){}
+    return { headers };
+  }
 
-  lostpass(){}
 
-  restorepass(){}
+  //public endpoints ------------
+
+  registration(table: string, data: object){
+    return this.http.post(`${this.server}/${table}/registration`, data);
+  }
+
+  login(table: string, data: object){
+    return this.http.post(`${this.server}/${table}/login`, data);
+  }
+
+  //lostpass(){}
+
+  //restorepass(){}
 
   readById(table: string, id: number){
     return this.http.get(`${this.server}/public/${table}/${id}`);
@@ -33,21 +52,23 @@ export class ApiService {
   readAll(table : string){
     return this.http.get(`${this.server}/public/${table}`);
   }
-  
-  sendMail(){}
 
-  //private endpoints
+  sendMail(data: object){
+    return this.http.post(`${this.server}/sendmail`, data);
+  }
+
+  //private endpoints ------------
 
   selectById(table: string, id: number){
-    return this.http.get(`${this.server}/${table}/${id}`);
+    return this.http.get(`${this.server}/${table}/${id}`, this.tokenHeader());
   }
 
   selectByField(table: string, field: string, op: string, value: string){
-    return this.http.get(`${this.server}/${table}/${field}/${op}/${value}`);
+    return this.http.get(`${this.server}/${table}/${field}/${op}/${value}` , this.tokenHeader());
   }
 
   selectAll(table: string){
-    return this.http.get(`${this.server}/${table}`);
+    return this.http.get(`${this.server}/${table}`, this.tokenHeader());
   }
 
   insert(){}
