@@ -1,0 +1,36 @@
+<div class="card text-center xs:col-12 md:col-6 mx-auto px-3">
+    <h1>Registration</h1>
+
+    <h3>Register a new user</h3>
+
+    <div class="flex mb-4">
+        <p-floatlabel variant="on">
+            <input pInputText id="username" [(ngModel)]="user.name" autocomplete="off" />
+            <label for="username">Username</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex mb-4">
+        <p-floatlabel variant="on">
+            <input pInputText id="email" [(ngModel)]="user.email" autocomplete="off" />
+            <label for="email">Email</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex mb-4">
+        <p-floatlabel variant="on">
+            <p-password id="password" [(ngModel)]="user.password" autocomplete="off" [toggleMask]="true"/>
+            <label for="password">Password</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex mb-4">
+        <p-floatlabel variant="on">
+            <p-password id="confirm" [(ngModel)]="user.confirm" autocomplete="off" [toggleMask]="true"/>
+            <label for="confirm">Confirm Password</label>
+        </p-floatlabel>
+    </div>
+
+        <p-button label="Registration" icon="pi pi-user" (onClick)="save()" />
+
+</div>

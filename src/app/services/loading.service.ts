@@ -6,7 +6,7 @@ import { BehaviorSubject, retry } from 'rxjs';
 })
 export class LoadingService {
   private readonly loadingSubject = new BehaviorSubject<boolean>(false);
-  readonly loading$ = this.loadingSubject.asObservable();
+  loading$ = this.loadingSubject.asObservable();
 
   private loadingCount = 0;
 

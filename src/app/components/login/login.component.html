@@ -1,0 +1,27 @@
+<div class="card text-center xs:col-12 md:col-6 mx-auto px-3">
+    <h1>Login</h1>
+
+    <h3>Login to your account</h3>
+
+    <div class="flex mb-4">
+        <p-floatlabel variant="on">
+            <input pInputText id="email" [(ngModel)]="user.email" autocomplete="off" />
+            <label for="email">Email</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex mb-4">
+        <p-floatlabel variant="on">
+            <p-password id="password" [(ngModel)]="user.password" autocomplete="off" [toggleMask]="true" />
+            <label for="password">Password</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <p-checkbox inputId="size_normal" [(ngModel)]="keepLoggedIn" name="size" binary="true"/>
+        <label for="size_normal">Normal</label>
+    </div>
+
+    <p-button label="Login" icon="pi pi-sign-in" (onClick)="login()" />
+
+</div>
