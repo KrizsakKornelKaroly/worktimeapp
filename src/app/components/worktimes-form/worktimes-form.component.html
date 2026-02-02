@@ -1,0 +1,29 @@
+<div class="card xs:col-12 md:col-6 mx-auto px-3 text-center">
+    <h2>Worktimes</h2>
+    <p>Add new worktime</p>
+
+    <p-floatlabel class="w-full md:w-56" variant="on">
+        <p-select 
+            [(ngModel)]="worktime.userId" 
+            inputId="on_label" 
+            [options]="users" 
+            optionLabel="name" 
+            optionValue="id"
+            styleClass="w-full text-left" 
+            [filter]="true" 
+            filterBy="name" 
+            [showClear]="true"
+        />
+        <label for="on_label">Users</label>
+    </p-floatlabel>
+
+    <p-datepicker styleClass="w-full my-2" [(ngModel)]="worktime.date" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
+
+    <p-datepicker styleClass="w-full my-2" inputId="calendar-timeonly" [(ngModel)]="worktime.start" [timeOnly]="true" [showIcon]="true" icon="pi pi-clock"/>
+
+    <p-datepicker styleClass="w-full my-2" inputId="calendar-timeonly" [(ngModel)]="worktime.end" [timeOnly]="true" [showIcon]="true" icon="pi pi-clock"/>
+
+    <p-button label="Cancel" icon="pi pi-times" routerLink="/worktimes" severity="secondary" class="mr-2"></p-button>
+
+    <p-button label="Save" icon="pi pi-check" (click)="save()"></p-button>
+</div>

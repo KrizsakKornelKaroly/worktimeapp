@@ -2,25 +2,35 @@
     <h2>Users</h2>
     <p>Registered users list</p>
 
-    <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table 
+        [value]="users" 
+        [tableStyle]="{ 'min-width': '50rem' }" 
+        [paginator]="true" 
+        [rows]="10" 
+        [rowsPerPageOptions]="[5, 10, 20, 50]"
+        stripedRows="true",
+        selectionMode="single"
+    >
+    <!--TODO: implementing search-filter -->
     <ng-template #header>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Registration</th>
-            <th>Last Login</th>
+            <th pSortableColumn="index"># <p-sortIcon field="index" /></th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+            <th pSortableColumn="email">Email <p-sortIcon field="email" /></th>
+            <th pSortableColumn="reg">Registration <p-sortIcon field="reg" /></th>
+            <th pSortableColumn="last">Last Login <p-sortIcon field="last" /></th>
             <th class="text-right">Operations</th>
         </tr>
     </ng-template>
-    <ng-template #body let-user>
+    <ng-template #body let-user let-rowIndex="rowIndex">
         <tr>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.reg | date }}</td>
-            <td>{{ user.last | date }}</td>
-            <td class="flex justify-content-end">
-                <p-button label="Edit" class="mx-2"></p-button>
-                <p-button label="Delete" class="mx-2"></p-button>
+            <td >{{ rowIndex + 1 }}</td>
+            <td >{{ user.name }}</td>
+            <td >{{ user.email }}</td>
+            <td >{{ user.reg | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+            <td >{{ user.last | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+            <td class="text-right">
+                <p-toggleswitch [(ngModel)]="user.status" />
             </td>
         </tr>
     </ng-template>

@@ -4,11 +4,16 @@ import { User } from '../../interfaces/user';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Button } from 'primeng/button';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { FormsModule } from '@angular/forms';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, TableModule, Button],
+  imports: [CommonModule, TableModule, Button, ToggleSwitchModule, FormsModule, IconFieldModule, InputIconModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -27,8 +32,10 @@ export class UsersComponent {
   getUsers(){
     this.api.selectAll('users').subscribe({
       next: (res) => {
-        console.log(res);
         this.users = res as User[];
+        this.users.forEach(user => {
+          user.status = user.status ? true : false;
+        });
       },
       error: (err) => {
         console.error(err.error.error);

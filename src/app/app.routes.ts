@@ -6,6 +6,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { WorktimesComponent } from './components/worktimes/worktimes.component';
 import { UsersComponent } from './components/users/users.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { WorktimesFormComponent } from './components/worktimes-form/worktimes-form.component';
 
 export const routes: Routes = [
     {
@@ -18,7 +19,20 @@ export const routes: Routes = [
     },
     {
         path: 'worktimes',
-        component: WorktimesComponent
+        children: [
+            {
+                path: '',
+                component: WorktimesComponent
+            },
+            {
+                path: 'new',
+                component: WorktimesFormComponent
+            },
+            {
+                path: ':id',
+                component: WorktimesFormComponent
+            }
+        ]
     },
     {
         path: 'statistics',
