@@ -30,7 +30,7 @@
             <td >{{ user.reg | date: "yyyy-MM-dd HH:mm:ss" }}</td>
             <td >{{ user.last | date: "yyyy-MM-dd HH:mm:ss" }}</td>
             <td class="text-right">
-                <p-toggleswitch [(ngModel)]="user.status" />
+                <p-toggleswitch [(ngModel)]="user.status" (click)="updateUserStatus(user.id)" />
             </td>
         </tr>
     </ng-template>

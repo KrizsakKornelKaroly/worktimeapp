@@ -78,6 +78,25 @@ export class WorktimesComponent {
 
   delete(id: string){
     
+    if (!confirm('Are you sure you want to delete this worktime entry?')) {
+      return;
+    }
+
+    this.api.delete('worktimes', id).subscribe({
+      next: (res) => {
+        alert('Successful deletion!');
+        if (this.selectedUser){
+          this.getWorkTimes(this.selectedUser.id);
+        }
+        else{
+          this.getWorkTimes(null);
+        }
+      },
+      error: (error) => {
+        console.log('Error deleting worktime:', error.error.error);
+        alert('Error deleting worktime: ' + error.error.error);
+      }
+    });
   }
 
 }

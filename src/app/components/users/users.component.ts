@@ -21,7 +21,7 @@ export class UsersComponent {
 
   constructor(
     private api: ApiService
-  ){} 
+  ) { }
 
   users: User[] = [];
 
@@ -29,7 +29,7 @@ export class UsersComponent {
     this.getUsers()
   }
 
-  getUsers(){
+  getUsers() {
     this.api.selectAll('users').subscribe({
       next: (res) => {
         this.users = res as User[];
@@ -41,5 +41,22 @@ export class UsersComponent {
         console.error(err.error.error);
       }
     })
+  }
+
+  updateUserStatus(id: string) {
+    let data = {
+      status: (this.users.find(user => user.id === id)?.status) ? 1 : 0 
+    }
+
+    this.api.update('users', data, id).subscribe(
+      {
+        next: (res) => {
+          this.getUsers();
+        },
+        error: (err) => {
+          console.error(err.error.error);
+        }
+      }
+    )
   }
 }

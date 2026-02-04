@@ -1,1 +1,9 @@
-<p>statistics works!</p>
+<div class="card xs:col-12 lg:col-6 mx-auto px-3 text-center">
+    <h2>Statistics</h2>
+    <p>All registered user's statistics</p>
+
+<p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" [showIcon]="true" (onMonthChange)="refreshChartData()" styleClass="mb-3"/>
+
+<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+
+</div>
