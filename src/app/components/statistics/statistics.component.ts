@@ -4,6 +4,8 @@ import { ChartModule } from 'primeng/chart';
 import { DatePickerModule } from 'primeng/datepicker';
 import { User } from '../../interfaces/user';
 import { ApiService } from '../../services/api.service';
+import moment from 'moment';
+import { WorkTime } from '../../interfaces/worktime';
 
 @Component({
   selector: 'app-statistics',
@@ -15,16 +17,22 @@ import { ApiService } from '../../services/api.service';
 export class StatisticsComponent {
   data: any;
   options: any;
-
   date: Date = new Date();
   users: User[] = [];
+  monthDays: string[] = [];
+
+  avgWorkTimePerDay: number[] = [];
+  sumMinutesPerDay: number[] = [];
+  countUsersWithDataPerDay: number[] = [];
+
 
   constructor(
     private api: ApiService
-  ){}
+  ) { }
 
   ngOnInit() {
     this.getUsers();
+    this.refreshChartData();
     this.initChart();
   }
 
@@ -97,20 +105,53 @@ export class StatisticsComponent {
 
   refreshChartData() {
     this.getSelectedMonthDays();
-    this.getAvgWorkTimes();
+
+    this.sumMinutesPerDay = new Array(this.monthDays.length).fill(0);
+    this.countUsersWithDataPerDay = new Array(this.monthDays.length).fill(0);
+    this.avgWorkTimePerDay = new Array(this.monthDays.length).fill(0);
+
 
     this.users.forEach(user => {
       this.getUserWorkTimes(user.id);
     });
 
+    this.getAvgWorkTimes();
     this.initChart();
   };
 
-  getSelectedMonthDays() { }
+  getSelectedMonthDays() {
+    const y = this.date.getFullYear();
+    const m = this.date.getMonth();
+
+    const first = new Date(y, m, 1);
+    const last = new Date(y, m + 1, 0);
+
+    this.monthDays = [];
+
+    for (let d = first; d <= last; d.setDate(d.getDate() + 1)) {
+      this.monthDays.push(moment(d).format('MM-DD'));
+    }
+  }
 
   getAvgWorkTimes() { }
 
-  getUserWorkTimes(userId: string) { }
+  getUserWorkTimes(userId: string) {
+    this.api.selectByField('worktimes', 'userId', 'eq', userId).subscribe({
+      next: (res) =>{
+        const worktimes = res as WorkTime[]
+
+        const filteredWorktimes = worktimes.filter(w => moment(w.date).format("YYYY-MM") == moment(this.date).format('YYYY-MM'));
+
+        filteredWorktimes.forEach(fw => {
+          fw.forEach( => {
+            
+          });
+        });
+
+      }
+      
+    });
+  }
 
   getUsers() {
     this.api.selectByField('users', 'status', 'eq', '1').subscribe({
@@ -120,7 +161,7 @@ export class StatisticsComponent {
       error: (err) => {
         console.error('Error fetching users:', err);
       }
-      
+
     });
   }
 

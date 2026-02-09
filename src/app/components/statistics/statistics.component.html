@@ -2,7 +2,7 @@
     <h2>Statistics</h2>
     <p>All registered user's statistics</p>
 
-<p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" [showIcon]="true" (onMonthChange)="refreshChartData()" styleClass="mb-3"/>
+<p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" [showIcon]="true" (onSelect)="refreshChartData()" styleClass="mb-3"/>
 
 <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
 
