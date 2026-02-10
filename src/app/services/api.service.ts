@@ -71,6 +71,10 @@ export class ApiService {
     return this.http.get(`${this.server}/${table}`, this.tokenHeader());
   }
 
+  getHolidays(table: string){
+    return this.http.get(`${this.server}/${table}/holidays`);
+  }
+
   insert(table: string, data: object){
     return this.http.post(`${this.server}/${table}`, data, this.tokenHeader());
   }

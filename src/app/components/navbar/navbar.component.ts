@@ -61,6 +61,11 @@ export class NavbarComponent {
           routerLink: '/worktimes'
         },
         {
+          label: 'Calendar',
+          icon: 'pi pi-calendar',
+          routerLink: '/calendar'
+        },
+        {
           label: 'Statistics',
           icon: 'pi pi-chart-bar',
           routerLink: '/statistics'

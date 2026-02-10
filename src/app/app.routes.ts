@@ -7,6 +7,7 @@ import { WorktimesComponent } from './components/worktimes/worktimes.component';
 import { UsersComponent } from './components/users/users.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { WorktimesFormComponent } from './components/worktimes-form/worktimes-form.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,10 @@ export const routes: Routes = [
     {
         path: 'statistics',
         component: StatisticsComponent
+    },
+    {
+        path: 'calendar',
+        component: CalendarComponent
     },
     {
         path: 'login',
